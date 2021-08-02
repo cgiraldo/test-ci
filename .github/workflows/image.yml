@@ -41,7 +41,11 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: |
+           echo "$GITHUB_CONTEXT"
+           echo "$STEPS_CONTEXT"
+            
       - name: Build
         uses: docker/build-push-action@v2
         with:
