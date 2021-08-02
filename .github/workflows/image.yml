@@ -15,6 +15,7 @@ jobs:
           NAME=$(echo ${{ github.event.release.tag_name }} | rev | cut -d- -f2- | rev)
           VERSION=$(echo ${{ github.event.release.tag_name }} | rev | cut -d- -f1 | rev)
           DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${NAME}
+          SHORTREF=${GITHUB_SHA::8}
           TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${SHORTREF}"
 
           # Set output parameters.
