@@ -18,8 +18,8 @@ jobs:
           TAGS="${DOCKER_IMAGE}:${VERSION}"
 
           # Set output parameters.
-          echo "::set-output name=name::$name"
-          echo "::set-output name=version::$version"  
+          echo "::set-output name=name::${NAME}"
+          echo "::set-output name=version::${VERSION}"  
           echo "::set-output name= tags::${TAGS}"
       -
         name: Checkout
