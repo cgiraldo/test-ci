@@ -15,8 +15,7 @@ jobs:
           NAME=$(echo ${{ github.event.release.tag_name }} | rev | cut -d- -f2- | rev)
           VERSION=$(echo ${{ github.event.release.tag_name }} | rev | cut -d- -f1 | rev)
           DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${NAME}
-          SHORTREF=${GITHUB_SHA::8}
-          TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${SHORTREF}"
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
 
           # Set output parameters.
           echo "::set-output name=name::$name"
@@ -39,7 +38,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Build
         uses: docker/build-push-action@v2
         with:
